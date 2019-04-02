@@ -1,0 +1,134 @@
+URI: 
+Descripción: Añadir nuevo usuario a la red
+Método: POST
+Cadena de consulta (solo GET): ninguna, no GET
+Cuerpo (solo PUT o POST):
+Devuelve: 200: OK + ---
+          401: Unauhtorized
+          ...
+
+URI:
+Descripción: Obtener datos usuario
+Método: GET
+Cadena de consulta (solo GET): <provisional> -> filter_by_text = búsqueda por nombre
+Cuerpo (solo PUT o POST):
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...
+          
+URI:
+Descripción: Modificar datos de Usuario excepto nombre
+Método: PUT
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST): ...
+Devuelve: 200: OK + ...
+          401: Unauhtorized
+          ...         
+          
+URI:
+Descripción: lista de usuarios de la red
+Método: GET
+Cadena de consulta (solo GET): <provisional> -> filter_by_text = búsqueda por nombre
+Cuerpo (solo PUT o POST=:
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...          
+          
+URI:
+Descripción: Publicar mensaje página personal
+Método: POST
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST): ...
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...          
+          
+URI:
+Descripción: Eliminar mensaje propio
+Método: DELETE
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST): 
+Devuelve: 200: OK + ...
+          401: Unauhtorized
+          ...      
+          
+URI:
+Descripción: Editar mensaje propio
+Método: PUT
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST): ...
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...          
+          
+URI:
+Descripción: Obtener lista mensajes usuario en página principal
+Método: GET
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST): ...
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...    
+          
+URI:
+Descripción: Añadir nuevo amigo
+Método: POST
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST): ...
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...            
+          
+URI:
+Descripción: Eliminar amigo
+Método: DELETE
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST):
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...   
+          
+URI:
+Descripción: Obtener lista de amigos
+Método: GET
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST): ...
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...            
+          
+URI:
+Descripción: Enviar mensaje personal a usuario
+Método: POST
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST): ...
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...            
+          
+URI:
+Descripción: Borrar perfil red social
+Método: DELETE
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST): ...
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...      
+          
+URI:
+Descripción: Obtener lista últimos mensajes amigos 
+Método: GET
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST): ...
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...   
+          
+URI:
+Descripción: Mostrar datos usuario
+Método: GET
+Cadena de consulta (solo GET): 
+Cuerpo (solo PUT o POST): ...
+Devuelve: 200: ok + ...
+          401: Unauhtorized
+          ...            
