@@ -1,0 +1,67 @@
+package modelos;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Mensaje")
+public class Mensaje {
+	private int idMessage;
+	private String UserName;
+	private String Adressee;
+	private java.util.Date Date; //Â¡Ojo! Problema -> el tipo date java != date sql; habrÃ­a que convertir
+	private String Message;
+	
+	@XmlAttribute
+	public int getIdMesage() {
+		return idMessage;
+	}
+	
+	public void setIdMessage(int id) {
+		this.idMessage = id;
+	}
+	
+	public String getUserName() {
+		return UserName;
+	}
+	
+	public void setUserName(String UserName) {
+		this.UserName = UserName;
+	}
+	
+	public String getAdressee() {
+		return Adressee;
+	}
+	
+	public void setAdressee(String Adressee) {
+		this.Adressee = Adressee;
+	}
+	
+	public java.util.Date getDate(){
+		return Date;
+	}
+	
+	public void setDate(java.util.Date Date) {
+		this.Date = Date;
+	}
+	
+	public String getMessage() {
+		return Message;
+	}
+	
+	public void setMessage(String Message) {
+		this.Message = Message;
+	}
+	
+	public Mensaje() {}
+	
+	public Mensaje(int idMessage, String UserName, String Adresse, java.util.Date Date, 
+			String Message) {
+		super();
+		this.idMessage= idMessage;
+		this.UserName = UserName;
+		this.Adressee = Adresse;
+		this.Date = Date;
+		this.Message = Message;
+		
+	}
+}
