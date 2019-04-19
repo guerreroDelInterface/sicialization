@@ -1,0 +1,47 @@
+package modelos;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "amistad")
+public class Amistad {
+	
+	private int idFriends;
+	private String id_us1;
+	private String id_us2;
+	
+	@XmlAttribute
+	public int getIdFriends(){
+		return idFriends;
+	}
+	
+	public void setIdFriends(int id) {
+		this.idFriends= id; //no sÃ© si harÃ­a falta pues nuestro idFriends es AutoIncremented
+	}
+	
+	public String getId_us1() {
+		return id_us1;
+	}
+	
+	public void setId_us1(String us1) {
+		this.id_us1 = us1;
+	}
+	
+	public String getId_us2() {
+		return id_us2;
+	}
+	
+	public void setId_us2(String us2) {
+		this.id_us2 = us2;
+	}
+	
+	public Amistad() {}
+	
+	public Amistad(int idFriends, String id_us1, String id_us2) {
+		super();
+		this.idFriends = idFriends;
+		this.id_us1 = id_us1;
+		this.id_us2 = id_us2;
+	}
+
+}
