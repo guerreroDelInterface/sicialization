@@ -1,0 +1,60 @@
+package modelos;
+
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "Usuario")
+public class Usuario {
+	
+	private String UserName;
+	private String Name;
+	private String Surname;
+	private String AboutMe;
+	
+	
+	@XmlAttribute
+	public String getUserName() {
+		return UserName;
+	}
+	
+	public void setUserName(String UserName) {
+		this.UserName = UserName;
+	}
+	
+	public String getName() {
+		return Name;
+	}
+	
+	public void setName(String Name) {
+		this.Name = Name;
+	}
+	
+	public String getSurname() {
+		return Surname;
+	}
+	
+	public void setSurname(String Surname) {
+		this.Surname = Surname;
+	}
+	
+	public String getAboutMe() {
+		return AboutMe;
+	}
+	
+	public void setAboutMe(String AboutMe) {
+		this.AboutMe = AboutMe;
+	}
+	
+	public Usuario() {}
+	
+	public Usuario (String UserName, String Name, String Surname, String AboutMe) {
+		super();
+		this.UserName = UserName;
+		this.Name = Name;
+		this.Surname = Surname;
+		this.AboutMe = AboutMe;
+				
+	}
+
+}
