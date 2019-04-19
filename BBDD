@@ -1,0 +1,133 @@
+package upmSocial;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
+import org.apache.catalina.User;
+
+import modelos.*;
+
+public class BBDD {
+
+	//Conectamos con la BBDD
+	
+	public Connection Conexion() {
+		Connection conn=null;
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost/" + "eerr",
+					"root", "restuser");
+			if (conn != null) {
+				System.out.println("Conexion a base de datos correcta");
+			}
+		}
+		catch(SQLException ex) {
+			System.out.println("Hubo un problema al conectarse con la base de datos");
+		}
+		catch(ClassNotFoundException ex) {
+			System.out.println(ex);
+		}
+		return conn;
+		
+	}
+	
+	
+	
+	//AÃ±adir Usuario a la red//
+	
+	public Response addUser (Usuario user, UriInfo uriInfo) throws ClassNotFoundException, SQLException{
+		Connection con = Conexion();
+		Statement sta = con.createStatement();
+		try {
+			if(user.getUserName() != null && user.getName() != null && user.getSurname() != null) {
+				sta.executeUpdate("INSERT INTO `eerr`.User` (`UserName`, `Name`, `Surname`, `AboutMe`)" 
+						+ " VALUES ( '"+user.getUserName()+"', '"+user.getName()+"','"+user.getSurname()+"', '"+user.getAboutMe()+"');"); 
+						
+			}
+			else {
+				return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+			}
+			
+			
+		} catch(SQLException e) {
+			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+		}
+		
+		String uri = uriInfo.getAbsolutePath().toString() + "/" + user.getUserName();
+		
+		return Response.status(Response.Status.CREATED).header("location", uri).build();
+	}
+	
+	//Obtener datos de usuario//
+	public ResultSet getDataUser (String userName) throws SQLException {
+		Connection con = Conexion();
+		Statement sta = con.createStatement();
+		
+		if(userName == null) {
+			return null;
+		}
+		ResultSet res = sta.executeQuery("SELECT * FROM eerr.User WHERE (User.UserName = '"+userName+"';");
+		return res;
+	}
+
+		
+	//Cambiar datos de un usuario//
+	public Response editUser (Usuario user, UriInfo uriInfo) throws SQLException {
+		Connection con = Conexion();
+		Statement sta = con.createStatement();
+		Statement st2 = con.createStatement();
+		
+		ResultSet res = sta.executeQuery("SELECT * FROM eerr.User WHERE User.UserName = '"+user.getUserName()+"';'");
+		
+		if(!res.next()) { //si usuario no existe devolvemos error
+			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+		}
+		else {
+			try { //si usuario existe, cambiamos la info y devolvemos ok
+				int res2 = st2.executeUpdate("UPDATE `eerr`. `User` SET" + " `Name`='"+user.getName()+"',+ `surname`='"
+			+user.getSurname()+"',+ `AboutMe`= '"+user.getAboutMe());
+			} catch (SQLException e) {
+				return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+			}
+		}
+		
+		return Response.status(Response.Status.OK).build();
+	}
+	
+	
+	//devuelve lista de ususarios
+	public ResultSet getUsers(String filtro) throws SQLException{
+		
+		Connection con = Conexion();
+		Statement sta = con.createStatement();
+		ResultSet res = null;
+		
+		if(filtro == null) { //si no se realiza filtro, devuleve la lista de usuarios entera.
+			res = sta.executeQuery("SELECT * FROM eerr.User");
+		}
+		else { //si se filtra, devolvemos la lista de nombres que contengan el texto a filtrar.
+			res = sta.executeQuery("SELECT * FROM eerr.User WHERE (User.UserName LIKE '%"+filtro);
+		}
+		return res;
+	}
+	
+	
+	//publicar mensaje
+	public Response addMessage (Mensaje men, UriInfo uriInfo) throws SQLException{
+		
+		Connection con = Conexion();
+		Statement sta = con.createStatement();
+		ResultSet res;
+		String uri;
+		
+		try {
+			
+		}
+	}
+	}
+
