@@ -89,7 +89,7 @@ public class BBDD {
 		}
 		else {
 			try { //si usuario existe, cambiamos la info y devolvemos ok
-				int res2 = st2.executeUpdate("UPDATE `eerr`. `User` SET" + " `Name`='"+user.getName()+"',+ `surname`='"
+				st2.executeUpdate("UPDATE `eerr`. `User` SET" + " `Name`='"+user.getName()+"',+ `surname`='"
 			+user.getSurname()+"',+ `AboutMe`= '"+user.getAboutMe());
 			} catch (SQLException e) {
 				return Response.status(Response.Status.NOT_ACCEPTABLE).build();
@@ -122,12 +122,115 @@ public class BBDD {
 		
 		Connection con = Conexion();
 		Statement sta = con.createStatement();
-		ResultSet res;
 		String uri;
 		
 		try {
-			
+			sta.executeUpdate("INSERT INTO `eerr`.`Messages` (`UserName`, `Adressee`, `Date`, `Messagge`)"
+					+ " VALUES ( '"+men.getUserName()+"','"+men.getAdressee()+"','"+men.getDate()+"','"
+					+men.getMessage()+"');");
+		}catch(SQLException e) {
+			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+		}
+		try { //auto incremento del id del mensaje
+			ResultSet resS= sta.executeQuery("SELECT LAST_INSERT_ID();");
+			if (!resS.next()) {
+				return Response.status(Response.Status.NOT_FOUND).build();
+			}
+			else {
+				uri = uriInfo.getAbsolutePath().toString() + "/" + resS.getString(1);
+			}
+		}catch(SQLException e) {
+			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+		}
+		return Response.status(Response.Status.CREATED).header("Location",  uri).build();
+	}
+	
+	
+	//eliminar un mensaje
+	public Response deleteMessage (String username, int id) throws SQLException{
+		
+		Connection con = Conexion();
+		Statement sta = con.createStatement();
+		
+		try {
+			ResultSet resS= sta.executeQuery("SELECT * FROM eerr.Messagges WHERE (Messagges.idMessagges ="
+					+ "'"+id+"' + AND Messagges.UserName='"+username+"');");
+			if (resS.next()) {
+				sta.executeUpdate("DELETE FROM eerr.Messagges WHERE (Messagges.idMessagges ="
+						+ "'"+id+"' AND Messagges.UserName='"+username+"');");
+			}
+			else {
+				return Response.status(Response.Status.NOT_FOUND).build();
+			}
+			}catch(SQLException e) {
+				return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
+			}
+		return Response.status(Response.Status.OK).build();
+	}
+	
+	
+	//editar un mensaje
+	public Response editMessagge(Mensaje mes, UriInfo uriInfo) throws SQLException{
+		
+		Connection con = Conexion();
+		Statement sta = con.createStatement();
+		Statement sta2= con.createStatement();
+		
+		ResultSet res = sta.executeQuery("SELECT * FROM eerr.Messagges WHERE " 
+				+ "(Messagges.UserName = '"+mes.getUserName()+"'" + "AND Messagges.idMessagges = '"+mes.getIdMesage()+"');");
+		if (!res.next()) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+		else {
+			try {
+				int res2= sta2.executeUpdate("UPDATE `eerr`.`Messagges` SET " +"`Date`='"+mes.getDate()+"',"
+						+ "`Adressee`='"+mes.getAdressee()+"'," + "`Messagge`='" +mes.getIdMesage()+"',"
+						+ "'idMessagge`='"+mes.getIdMesage()+"';");
+			}catch(SQLException e) {
+			return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+			}
+		}
+		return Response.status(Response.Status.OK).build();
+	}
+	
+	
+	//listar mensajes de un usuario
+	/*public ResultSet getListMessagge(String username, int start, int end, Timestamp from, Timestamp to, String text)
+			throws SQLException{
+		
+		Connection con = Conexion();
+		Statement sta = con.createStatement();
+		ResultSet res = null;
+		
+		if(text==null) {
+			if (from == null) {
+				if (to == null) {
+					res = sta.executeQuery("SELECT * FROM eerr.Messagges WHERE Messagges.UserName")+
+							+ "= '"+username+"' LIMIT "+String.valueOf(endd - (start -1))+" OFFSET"
+				}
+			}
+		}
+	}*/
+	
+	
+	//AÃ±adir un amigo
+	public Response addFriend (String user1, String user2, UriInfo uriInfo) throws SQLException {
+		
+		Connection con = Conexion ();
+		Statement sta1 = con.createStatement();
+		Statement sta2 = con.createStatement();
+		Statement sta3 = con.createStatement();
+		
+		ResultSet res1 = sta1.executeQuery("SELECT * FROM eerr.Users WHERE Users.UserName = '"+user1+"';");
+		ResultSet res2 = sta1.executeQuery("SELECT * FROM eerr.Users WHERE Users.UserName = '"+user2+"';");
+		
+		if (!res1.next+() || !res2.next()) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+		else{
+			ResultSet res3 = sta3.executeQuery(sql)
 		}
 	}
 	}
+
 
